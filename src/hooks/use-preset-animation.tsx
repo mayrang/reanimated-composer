@@ -2,29 +2,10 @@ import { useMemo } from "react";
 import {
   type AnimationPatternName,
   animationPatterns,
-} from "../interaction/animation-patterns";
-import { type AnimProps, useAnimation } from "./use-animation";
-
-function mergeOverrides<T>(
-  base: AnimProps<T>,
-  overrides: AnimProps<T>
-): AnimProps<T> {
-  const result = { ...base };
-  for (const key in overrides) {
-    const propKey = key as keyof AnimProps<T>;
-    if (
-      result[propKey] &&
-      typeof result[propKey] === "object" &&
-      overrides[propKey] &&
-      typeof overrides[propKey] === "object"
-    ) {
-      result[propKey] = { ...result[propKey], ...overrides[propKey] };
-    } else {
-      result[propKey] = overrides[propKey];
-    }
-  }
-  return result;
-}
+} from "../patterns/animation-patterns";
+import { useAnimation } from "./use-animation";
+import { AnimProps } from "../types";
+import { mergeOverrides } from "../utils/mergeOverrides";
 
 interface UsePresetAnimationOptions<T> {
   trigger: T;

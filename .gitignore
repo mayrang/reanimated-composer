@@ -1,0 +1,70 @@
+# ================================================================= #
+# Dependencies
+# ================================================================= #
+# Node.js 패키지 폴더
+/node_modules
+
+# ================================================================= #
+# Build & Output
+# ================================================================= #
+# TypeScript 컴파일 결과물 폴더
+/lib
+
+# ================================================================= #
+# Development Environment
+# ================================================================= #
+# 환경변수 파일 (API 키 등 민감 정보 포함)
+.env
+.env.*
+!.env.example
+
+# ================================================================= #
+# React Native & Mobile
+# ================================================================= #
+# Expo 관련 파일
+.expo/
+
+# Metro bundler 캐시
+.metro-cache/
+
+# iOS 빌드 폴더 및 파일
+ios/build/
+ios/Pods/
+*.xcodeproj/xcuserdata/
+
+# Android 빌드 폴더 및 파일
+android/app/build/
+android/build/
+android/.gradle/
+android/gradle/
+android/app/src/main/assets/index.android.bundle
+
+# ================================================================= #
+# Logs & Temporary Files
+# ================================================================= #
+# 각종 로그 파일
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# ================================================================= #
+# OS & Editor Specific
+# ================================================================= #
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Windows
+Thumbs.db
+ehthumbs.db
+
+# IDE/Editor 설정 파일
+.idea/
+.vscode/*
+# 단, 팀원들과 공유할 설정은 !를 사용해 예외 처리
+!.vscode/settings.json
+!.vscode/extensions.json
+*.sublime-workspace

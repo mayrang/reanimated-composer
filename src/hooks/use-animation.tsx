@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useRef } from "react";
-import Animated, {
+import {
   useSharedValue,
   useAnimatedStyle,
   withTiming,
@@ -11,61 +11,14 @@ import Animated, {
   cancelAnimation,
   type SharedValue,
 } from "react-native-reanimated";
-
-export type AnimType = "timing" | "spring" | "delay";
-
-export type SpringConfig = {
-  damping?: number;
-  stiffness?: number;
-  mass?: number;
-  overshootClamping?: boolean;
-  restDisplacementThreshold?: number;
-  restSpeedThreshold?: number;
-};
-
-export type TimingConfig = {
-  duration?: number;
-  // biome-ignore lint/suspicious/noExplicitAny: <explanation>
-  easing?: any;
-};
-
-export type Keyframe = {
-  value: number;
-  duration?: number;
-  delay?: number;
-};
-
-// biome-ignore lint/suspicious/noExplicitAny: <explanation>
-export type AnimConfig<T = any> = {
-  initial?: number;
-  to?: number | ((trigger: T) => number);
-  type?: AnimType;
-  duration?: number;
-  delay?: number;
-  config?: SpringConfig | TimingConfig;
-  sequence?: (number | Keyframe)[];
-  repeat?: { count: number; reverse?: boolean };
-};
-
-export type SupportedAnimKeys =
-  | "opacity"
-  | "translateX"
-  | "translateY"
-  | "scale"
-  | "scaleX"
-  | "scaleY"
-  | "rotate";
-
-// biome-ignore lint/suspicious/noExplicitAny: <explanation>
-export type AnimProps<T = any> = Partial<
-  Record<SupportedAnimKeys, AnimConfig<T>>
->;
-
-export type AnimationState = {
-  isRunning: boolean;
-  completedAnimations: Set<string>;
-  totalAnimations: number;
-};
+import {
+  AnimationState,
+  AnimConfig,
+  SpringConfig,
+  SupportedAnimKeys,
+  TimingConfig,
+  UseAnimationProps,
+} from "../types";
 
 export function useAnimation<T>({
   trigger,
@@ -73,20 +26,14 @@ export function useAnimation<T>({
   onComplete,
   onAnimationStart,
   onAnimationEnd,
-}: {
-  trigger: T;
-  animations: AnimProps<T>;
-  onComplete?: () => void;
-  onAnimationStart?: (key: string) => void;
-  onAnimationEnd?: (key: string) => void;
-}) {
+}: UseAnimationProps<T>) {
   const animationState = useRef<AnimationState>({
     isRunning: false,
     completedAnimations: new Set(),
     totalAnimations: 0,
   });
 
-  const completionTimeoutsRef = useRef<Set<number>>(new Set());
+  const completionTimeoutsRef = useRef<Set<NodeJS.Timeout>>(new Set());
 
   const opacity = useSharedValue(animations.opacity?.initial ?? 1);
   const translateX = useSharedValue(animations.translateX?.initial ?? 0);

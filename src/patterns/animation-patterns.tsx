@@ -1,4 +1,4 @@
-import type { AnimProps } from "../hooks/use-animation";
+import { AnimProps } from "../types";
 
 type PresetAnimation = AnimProps<boolean | number>;
 
