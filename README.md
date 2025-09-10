@@ -80,6 +80,14 @@ yarn add reanimated-composer
 
 > **Note:** `reanimated-composer` has peer dependencies on `react`, `react-native`, and `react-native-reanimated`. Please make sure they are installed in your project.
 
+## 🎮 Live Demo
+
+Try out the preset animations right in your browser:
+
+[![Run in Snack](https://img.shields.io/badge/Run%20in%20Snack-4630EB.svg?style=for-the-badge&logo=EXPO&labelColor=FFF&logoColor=000)](https://snack.expo.dev/@mayrang/reanimated-composer-example)
+
+[🚀 **Live Demo on Snack**](https://snack.expo.dev/@mayrang/reanimated-composer-example)
+
 ## Quick Start with Presets
 
 Using a preset animation is as simple as choosing a name and providing a trigger.
