@@ -1,15 +1,15 @@
-# 🎼 React Composer
+# 🎼 Reanimated Composer
 
-[![NPM Version](https://img.shields.io/npm/v/react-composer.svg)](https://www.npmjs.com/package/react-composer)
-[![License](https://img.shields.io/npm/l/react-composer.svg)](https://github.com/mayrang/react-composer/blob/main/LICENSE)
+[![NPM Version](https://img.shields.io/npm/v/reanimated-composer.svg)](https://www.npmjs.com/package/reanimated-composer)
+[![License](https://img.shields.io/npm/l/reanimated-composer.svg)](https://github.com/mayrang/reanimated-composer/blob/main/LICENSE)
 
 A declarative and extensible animation system for React Native, designed for consistency and a great developer experience. Built on top of `react-native-reanimated`.
 
 ---
 
-## Why React Composer?
+## Why Reanimated Composer?
 
-While `react-native-reanimated` is incredibly powerful, using it directly often leads to complex, repetitive, and inconsistent code. React Composer transforms the way you think about animations - from imperative to **declarative**.
+While `react-native-reanimated` is incredibly powerful, using it directly often leads to complex, repetitive, and inconsistent code. Reanimated Composer transforms the way you think about animations - from imperative to **declarative**.
 
 ### 🔄 From Complex to Simple
 
@@ -39,7 +39,7 @@ const MyComponent = () => {
 };
 ```
 
-**After (React Composer):**
+**After (Reanimated Composer):**
 
 ```tsx
 const MyComponent = () => {
@@ -73,12 +73,12 @@ const MyComponent = () => {
 ## Installation
 
 ```bash
-npm install react-composer
+npm install reanimated-composer
 # or
-yarn add react-composer
+yarn add reanimated-composer
 ```
 
-> **Note:** `react-composer` has peer dependencies on `react`, `react-native`, and `react-native-reanimated`. Please make sure they are installed in your project.
+> **Note:** `reanimated-composer` has peer dependencies on `react`, `react-native`, and `react-native-reanimated`. Please make sure they are installed in your project.
 
 ## Quick Start with Presets
 
@@ -88,7 +88,7 @@ Using a preset animation is as simple as choosing a name and providing a trigger
 import React, { useState } from "react";
 import { View, Button, StyleSheet } from "react-native";
 import Animated from "react-native-reanimated";
-import { usePresetAnimation } from "react-composer";
+import { usePresetAnimation } from "reanimated-composer";
 
 const MyComponent = () => {
   const [isVisible, setIsVisible] = useState(false);
