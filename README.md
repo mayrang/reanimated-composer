@@ -1,4 +1,3 @@
-````markdown
 # 🎼 React Composer
 
 [![NPM Version](https://img.shields.io/npm/v/react-composer.svg)](https://www.npmjs.com/package/react-composer)
@@ -24,7 +23,6 @@ npm install react-composer
 # or
 yarn add react-composer
 ```
-````
 
 > **Note:** `react-composer` has peer dependencies on `react`, `react-native`, and `react-native-reanimated`. Please make sure they are installed in your project.
 
@@ -96,7 +94,7 @@ const { animatedStyle, reset } = usePresetAnimation(patternName, options);
 You can use any of the following names for `patternName`:
 
 | Type         | Presets                                                                                   |
-| :----------- | :---------------------------------------------------------------------------------------- |
+|:-------------|:------------------------------------------------------------------------------------------|
 | **Entrance** | `fadeIn`, `slideInUp`, `slideInDown`, `slideInLeft`, `slideInRight`, `zoomIn`, `bounceIn` |
 | **Emphasis** | `shake`, `pulse`, `jiggle`                                                                |
 | **Exit**     | `fadeOut`, `slideOutUp`, `slideOutDown`, `slideOutLeft`, `slideOutRight`, `zoomOut`       |
@@ -126,16 +124,13 @@ const { animatedStyle } = usePresetAnimation("slideInUp", {
 
 For complex, one-off animations that don't fit a preset, you can use the low-level `useAnimation` hook. It accepts a detailed animation configuration object.
 
-> See the full API documentation for `useAnimation` [here](https://www.google.com/search?q=./docs/useAnimation.md).
+> See the full API documentation for `useAnimation` [here](./docs/useAnimation.md).
 
 ## Contributing
 
-Contributions are welcome\! Please feel free to open an issue or submit a pull request if you have any ideas or find a bug.
+Contributions are welcome! Please feel free to open an issue or submit a pull request if you have any ideas or find a bug.
 
 ## License
 
 This project is licensed under the **MIT License**.
 
-```
-
-```
