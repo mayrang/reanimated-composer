@@ -6,6 +6,7 @@ export type UseAnimationProps<T> = {
   onComplete?: () => void;
   onAnimationStart?: (key: string) => void;
   onAnimationEnd?: (key: string) => void;
+  animateOnMount?: boolean;
 };
 
 export type SpringConfig = {
@@ -36,6 +37,9 @@ export type AnimConfig<T = any> = {
   type?: AnimType;
   duration?: number;
   delay?: number;
+  
+  enter?: Omit<AnimConfig<T>, "initial" | "to" | "enter" | "exit">;
+  exit?: Omit<AnimConfig<T>, "initial" | "to" | "enter" | "exit">;
   config?: SpringConfig | TimingConfig;
   sequence?: (number | Keyframe)[];
   repeat?: { count: number; reverse?: boolean };

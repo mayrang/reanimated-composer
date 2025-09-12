@@ -186,6 +186,27 @@ animations: {
 }
 ```
 
+**Directional Animations (Enter / Exit):**
+
+Define different animations for when the `trigger` becomes truthy (enter) versus when it becomes falsy (exit). This is perfect for elements that appear and disappear with different effects.
+
+```tsx
+animations: {
+  opacity: {
+    initial: 0,
+    to: 1,
+    enter: { duration: 500 }, // Fades in over 500ms
+    exit: { duration: 200 },  // Fades out quickly in 200ms
+  },
+  translateY: {
+    initial: 20,
+    to: 0,
+    enter: { type: 'spring' }, // Slides in with a spring effect
+    exit: { duration: 200 },    // Slides out linearly
+  }
+}
+```
+
 ### Supported Properties
 
 | Property     | Description         | Example Values          |
@@ -309,6 +330,7 @@ const Modal = ({ visible, children }) => {
 
 - `patternName`: Name of the preset animation
 - `options.trigger`: Value that triggers the animation
+- `config.animateOnMount`: (Optional) Boolean that determines if the animation should run on the initial render. **Defaults to `false`**
 - `options.overrides`: Custom properties to override preset defaults
 - `options.onComplete`: Callback when animation completes
 
@@ -317,7 +339,9 @@ const Modal = ({ visible, children }) => {
 **Parameters:**
 
 - `config.trigger`: Value that triggers the animation
-- `config.animations`: Object describing each property to animate
+- `config.animations`: Object describing each property to animate. Each property key (e.g., opacity) holds a configuration object with properties like initial, to, duration, and optional enter/exit configs for bidirectional control.
+  - `enter`: (Optional) An animation config that overrides the base properties when the trigger becomes truthy.
+  - `exit`: (Optional) An animation config that overrides the base properties when the trigger becomes falsy. The animation will target the initial value.
 - `config.onComplete`: Callback when all animations complete
 - `config.onAnimationStart`: Callback when individual animation starts
 - `config.onAnimationEnd`: Callback when individual animation ends

@@ -1,6 +1,6 @@
 {
   "name": "reanimated-composer",
-  "version": "0.1.1",
+  "version": "0.1.3",
   "description": "A declarative and extensible animation system for React Native Reanimated, designed for consistency and developer experience.",
   "main": "lib/index.js",
   "module": "lib/index.js",
