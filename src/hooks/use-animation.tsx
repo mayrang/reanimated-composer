@@ -26,7 +26,9 @@ export function useAnimation<T>({
   onComplete,
   onAnimationStart,
   onAnimationEnd,
+  animateOnMount = false,
 }: UseAnimationProps<T>) {
+  const isInitialMount = useRef(true);
   const animationState = useRef<AnimationState>({
     isRunning: false,
     completedAnimations: new Set(),
@@ -104,18 +106,28 @@ export function useAnimation<T>({
   );
 
   const runAnimation = useCallback(
-    (key: SupportedAnimKeys, cfg: AnimConfig<T>) => {
-      const target =
-        typeof cfg.to === "function"
-          ? cfg.to(trigger)
-          : cfg.to ??
-            (typeof trigger === "boolean"
-              ? trigger
-                ? 1
-                : 0
-              : Number(trigger));
+    (key: SupportedAnimKeys, cfg: AnimConfig<T>, isEnter: boolean) => {
+      let target;
 
-      // biome-ignore lint/suspicious/noExplicitAny: <explanation>
+      if (isEnter) {
+        target =
+          typeof cfg.to === "function"
+            ? cfg.to(trigger)
+            : cfg.to ??
+              (typeof trigger === "boolean"
+                ? trigger
+                  ? 1
+                  : 0
+                : Number(trigger));
+      } else {
+        target = cfg.initial;
+      }
+
+      if (target === undefined) {
+        handleAnimationComplete(key);
+        return;
+      }
+
       let anim: any;
 
       if (onAnimationStart) {
@@ -187,6 +199,13 @@ export function useAnimation<T>({
   }, [animations, sharedValues]);
 
   useEffect(() => {
+    if (isInitialMount.current) {
+      isInitialMount.current = false;
+      if (!animateOnMount) {
+        return;
+      }
+    }
+
     completionTimeoutsRef.current.forEach(clearTimeout);
     completionTimeoutsRef.current.clear();
 
@@ -204,9 +223,12 @@ export function useAnimation<T>({
 
     for (const key of activeAnimations) {
       const animKey = key as SupportedAnimKeys;
-      const config = animations[animKey];
-      if (config) {
-        runAnimation(animKey, config);
+      const baseConfig = animations[animKey];
+      if (baseConfig) {
+        const isEnter = !!trigger;
+        const specificConfig = isEnter ? baseConfig.enter : baseConfig.exit;
+        const finalConfig = { ...baseConfig, ...specificConfig };
+        runAnimation(animKey, finalConfig, isEnter);
       }
     }
 
@@ -214,12 +236,10 @@ export function useAnimation<T>({
       completionTimeoutsRef.current.forEach(clearTimeout);
       completionTimeoutsRef.current.clear();
     };
-  }, [trigger, animations, runAnimation]);
+  }, [trigger, animations, animateOnMount]);
 
   const animatedStyle = useAnimatedStyle(() => {
-    // biome-ignore lint/suspicious/noExplicitAny: <explanation>
     const style: any = {};
-    // biome-ignore lint/suspicious/noExplicitAny: <explanation>
     const transforms: any[] = [];
 
     if (animations.opacity) {
@@ -267,7 +287,6 @@ export function useAnimation<T>({
   ]);
 
   const reset = useCallback(() => {
-    // biome-ignore lint/complexity/noForEach: <explanation>
     Object.entries(sharedValues).forEach(([key, sharedValue]) => {
       const animKey = key as SupportedAnimKeys;
       cancelAnimation(sharedValue);
@@ -288,7 +307,6 @@ export function useAnimation<T>({
   }, [sharedValues, animations]);
 
   const pause = useCallback(() => {
-    // biome-ignore lint/complexity/noForEach: <explanation>
     Object.values(sharedValues).forEach((sharedValue) => {
       cancelAnimation(sharedValue);
     });
